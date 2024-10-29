@@ -1,0 +1,93 @@
+/* Сброс стилей */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 20px;
+}
+
+/* Сетка для карточек */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* Стиль для карточек */
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  font-size: 2.5rem;   /* Увеличенный размер иконки */
+  color: #f59e0b;      /* Цвет иконки */
+  margin-right: 15px;  /* Отступ справа для выравнивания */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Стили для текста */
+.number {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.label {
+  color: #6b7280;
+}
+
+/* Сетка для таблиц */
+.table-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Стиль для таблиц */
+.table-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.view-all {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table th {
+  text-align: left;
+  color: #6b7280;
+  font-weight: normal;
+}

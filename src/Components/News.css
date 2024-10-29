@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Общие стили */
+.icon-box {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(0, 36, 156);
+}
+
+.icon-box a {
+    text-align: left;
+    color: white;
+}
+
+.icon-box img {
+    width: 85px;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .icon-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .icon-box img {
+        margin-bottom: 10px;
+    }
+
+    .icon-box a {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    hr {
+        margin: 20px 0;
+    }
+}

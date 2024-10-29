@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+.footer {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  background-color: #00249c;
+  color: #ffff;
+}
+
+.footer-data {
+  display: flex;
+  justify-content: space-around;
+}
+
+.contact-details {
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin: 15px;
+}
+.contact-details p{
+  color: #ffff;
+}
+
+.usefull-links {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  margin: 15px;
+}
+
+.usefull-links a {
+  color: white;
+}
+
+.librarian-details {
+  text-align: left;
+  letter-spacing: 1.5px;
+  margin: 15px;
+}
+
+.contact-details h1,
+.usefull-links h1,
+.librarian-details h1,
+.contact-social h1 {
+  font-size: 25px;
+  color: whitesmoke;
+  padding-bottom: 15px;
+  border-bottom-style: solid;
+  border-bottom-width: 3.1px;
+  width: fit-content;
+}
+
+.contact-social {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  margin: 15px;
+}
+
+.social-icons {
+  display: flex; /* Располагаем иконки в одну строку */
+  gap: 20px; /* Задаем расстояние между иконками */
+  margin-top: 10px; /* Отступ между заголовком и иконками */
+}
+
+.social-icon {
+  text-decoration: none;
+}
+
+.copyright-details p {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1.15px;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.copyright-details span {
+  font-size: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-data {
+    display: flex;
+    flex-direction: column;
+  }
+}

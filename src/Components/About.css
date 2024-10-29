@@ -1,0 +1,103 @@
+/* About.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.quote-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    padding: 40px;
+    max-width: 700px;
+    margin: 40px auto;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    font-family: 'Lora', serif;
+    color: #2c2c2c;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .quote-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quote-content {
+    position: relative;
+  }
+  
+  .quote-mark {
+    font-size: 4rem;
+    color: rgb(0, 36, 156);
+    font-weight: 700;
+    opacity: 0.8;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2;
+    color: #4b4b4b;
+    margin: 0;
+  }
+  
+  .author-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+  
+  .profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 3px solid #3498db;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: border 0.3s ease;
+  }
+  
+  .profile-pic:hover {
+    border-color: #2980b9;
+  }
+  
+  .author-details {
+    text-align: left;
+  }
+  
+  .author-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .author-name::before {
+    margin-right: 5px;
+    color: #3498db;
+  }
+  
+  @media (max-width: 600px) {
+    .quote-card {
+      padding: 30px;
+    }
+  
+    .quote-mark {
+      font-size: 3rem;
+    }
+  
+    p {
+      font-size: 1.3rem;
+    }
+  
+    .profile-pic {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .author-name {
+      font-size: 1.2rem;
+    }
+  }
+  
