@@ -1,6 +1,6 @@
 import React from "react";
 import "./Allbooks.css";
-import Footer from "../Components/Footer"; // Импорт компонента Footer
+import Footer from "../../Components/Footer"; // Импорт компонента Footer
 
 function Allbooks() {
   return (

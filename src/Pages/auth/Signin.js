@@ -1,39 +1,25 @@
 import React, { useState } from 'react';
 import './Signin.css';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Для перенаправления
+import { login } from './singnApi'; // Импортируем функцию login
 
 function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('worker'); // По умолчанию "worker" (работник)
     const [error, setError] = useState('');
     const navigate = useNavigate(); // Используем навигацию для перенаправления
 
-    // URL для администратора и работника
-    const API_URL_ADMIN = "http://localhost:3000/auth";
-    const API_URL_WORKER = "http://localhost:3000/auth/employee";
-
-    const loginCall = async (userCredential, apiUrl) => {
-        try {
-            const res = await axios.post(apiUrl, userCredential);
-            
-            // Сохраняем токен в локальном хранилище
-            localStorage.setItem('token', res.data.token);
-
-            // Перенаправляем на главную страницу
-            navigate('/profile'); 
-        } catch (err) {
-            setError("Неправильный email или пароль");
-        }
-    };
-
-    const sendForm = (e) => {
+    const sendForm = async (e) => {
         e.preventDefault();
         
-        // Выбор правильного URL в зависимости от роли
-        const apiUrl = role === 'admin' ? API_URL_ADMIN : API_URL_WORKER;
-        loginCall({ email, password }, apiUrl);
+        try {
+            const res = await login(email, password, "reader");
+            localStorage.setItem('token', res.token);
+
+            navigate('/profile'); 
+        } catch (err) {
+            setError(err.message);
+        }
     };
 
     return (
@@ -61,30 +47,6 @@ function Signin() {
                             name="password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                    </div>
-                    
-                    {/* Переключатель для выбора роли */}
-                    <div className="role-selection">
-                        <label>
-                            <input 
-                                type="radio" 
-                                name="role" 
-                                value="worker" 
-                                checked={role === 'worker'} 
-                                onChange={() => setRole('worker')} 
-                            />
-                            Работник
-                        </label>
-                        <label>
-                            <input 
-                                type="radio" 
-                                name="role" 
-                                value="admin" 
-                                checked={role === 'admin'} 
-                                onChange={() => setRole('admin')} 
-                            />
-                            Администратор
-                        </label>
                     </div>
 
                     <button className="signin-button" type="submit">Авторизоваться</button>
