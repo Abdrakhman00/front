@@ -20,14 +20,14 @@ function MemberDashboard() {
   const [sidebar, setSidebar] = useState(false);
 
   const API_URL = process.env.REACT_APP_API_URL;
-  const { user } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const [memberDetails, setMemberDetails] = useState(null);
 
   useEffect(() => {
     const getMemberDetails = async () => {
       try {
         const response = await axios.get(
-          API_URL + "api/users/getuser/" + user._id
+          API_URL + "api/users/getuser/" + token._id
         );
         setMemberDetails(response.data);
       } catch (err) {
@@ -35,10 +35,10 @@ function MemberDashboard() {
       }
     };
     getMemberDetails();
-  }, [API_URL, user]);
+  }, [API_URL, token]);
 
   const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     window.location.reload();
   };
 
