@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "../AdminDashboard.css"
+import "../../AdminDashboard/AdminDashboard.css"
 import axios from "axios"
 import { Dropdown } from 'semantic-ui-react'
 import DatePicker from "react-datepicker";

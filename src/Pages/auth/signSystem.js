@@ -19,9 +19,9 @@ function SigninSystem() {
 
             // Перенаправляем на соответствующую страницу в зависимости от роли
             if (role === 'admin') {
-                navigate('/admin-dashboard'); // Страница для администраторов
+                navigate('/profile/admin'); // Страница для администраторов
             } else {
-                navigate('/profile'); // Страница для сотрудников/читателей
+                navigate('/profile/employee'); // Страница для сотрудников/читателей
             }
         } catch (err) {
             setError(err.message);

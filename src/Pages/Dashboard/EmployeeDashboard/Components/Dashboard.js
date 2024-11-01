@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./dashboard.css"
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { getEmployeeById } from '../../../managment/employee/api';
+import { jwtDecode } from 'jwt-decode';
 import { FaUsers, FaUserPlus, FaBook, FaExclamationTriangle, FaChevronDown, FaEllipsisH, FaChevronRight } from 'react-icons/fa';
 
 const App = () => {
+    const token = localStorage.getItem("token")
+    const decodedToken =jwtDecode(token)
+    useEffect(()=>{
+        didMount()
+    }, [])
+    const didMount = async ()=>{
+        const res = await getEmployeeById(decodedToken.id)
+        console.log(res);
+
+    }
+    const navigate = useNavigate()
     return (
         <div className="container">
             <div className="dashboard-grid">
@@ -16,6 +30,8 @@ const App = () => {
                 <Table title="Member List" headers={["MEMBER NAME", "ID", "BOOKS ISSUED", "ACTION"]} rows={members} />
                 <Table title="List of Books" headers={["BOOK NAME", "BOOK CODE", "BOOK STATUS", "ACTION"]} rows={books} />
             </div>
+            <button onClick={()=> navigate('/employee/dashboard')} >Сотрудники</button>
+            <button onClick={()=> navigate('/reader/dashboard')}>Читатели</button>
         </div>
     );
 };

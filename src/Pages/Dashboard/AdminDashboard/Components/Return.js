@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import "../AdminDashboard.css"
 import axios from "axios"
 import { Dropdown } from 'semantic-ui-react'
-import '../../MemberDashboard/MemberDashboard.css'
+import '../../ReaderDashboard/MemberDashboard.css'
 import moment from "moment"
 import { AuthContext } from '../../../../Context/AuthContext'
 

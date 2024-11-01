@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import "./EmployeeDashboard.css"
-import AddTransaction from './Components/AddTransaction'
-import AddMember from './Components/AddMember'
+import React, { useState } from 'react';
+import "./EmployeeDashboard.css";
+import AddTransaction from './Components/AddTransaction';
+import AddMember from './Components/AddMember';
 import AddBook from './Components/AddBook';
-import Dashboard from './Components/Dashboard'; 
+import Dashboard from './Components/Dashboard';
 
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -19,7 +19,7 @@ import GetMember from './Components/GetMember';
 import AssignmentReturnIcon from '@material-ui/icons/AssignmentReturn';
 import Return from './Components/Return';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-
+import ProfilePage from './Components/Profile';
 
 /* Semantic UI Dropdown Styles Import */
 const styleLink = document.createElement("link");
@@ -28,16 +28,47 @@ styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css
 document.head.appendChild(styleLink);
 
 function EmployeeDashboard() {
+    const [active, setActive] = useState("dashboard");
+    const [sidebar, setSidebar] = useState(false);
 
-    const [active, setActive] = useState("addbooks")
-    const [sidebar, setSidebar] = useState(false)
-
-    /* Logout Function*/
+    /* Logout Function */
     const logout = () => {
         localStorage.removeItem("user");
         window.location.reload();
-    }
+    };
 
+    // Функция для рендеринга активного компонента
+    const renderActiveComponent = () => {
+        switch (active) {
+            case "profile":
+                return <ProfilePage />;
+            case "dashboard":
+                return <Dashboard />;
+            case "addbook":
+                return <AddBook />;
+            case "addtransaction":
+                return <AddTransaction />;
+            case "addmember":
+                return <AddMember />;
+            case "getmember":
+                return <GetMember />;
+            case "returntransaction":
+                return <Return />;
+            default:
+                return null; // Возвращаем null, если ничего не выбрано
+        }
+    };
+
+    // Функция для изменения активного элемента и управления сайдбаром
+    const handleSidebarClick = (menuItem) => {
+        setActive(menuItem);
+        // Закрываем сайдбар только если выбран не "profile"
+        if (menuItem !== "profile") {
+            setSidebar(false);
+        } else {
+            setSidebar(true);
+        }
+    };
 
     return (
         <div className="dashboard">
@@ -54,39 +85,23 @@ function EmployeeDashboard() {
                         <LibraryBooksIcon style={{ fontSize: 50 }} />
                         <p className="logo-name">ABIS</p>
                     </div>
-                    <p className={`dashboard-option ${active === "profile" ? "clicked" : ""}`} onClick={() => { setActive("profile"); setSidebar(false) }}><AccountCircleIcon className='dashboard-option-icon' /> Профиль</p>
-                    <p className={`dashboard-option ${active === "profile" ? "clicked" : ""}`} onClick={() => { setActive("dashboard"); setSidebar(false) }}><DashboardIcon className='dashboard-option-icon' /> Панель управления</p>
-                    <p className={`dashboard-option ${active === "addbook" ? "clicked" : ""}`} onClick={() => { setActive("addbook"); setSidebar(false) }}><BookIcon className='dashboard-option-icon' />Добавить книгу</p>
-                    <p className={`dashboard-option ${active === "addtransaction" ? "clicked" : ""}`} onClick={() => { setActive("addtransaction"); setSidebar(false) }}><ReceiptIcon className='dashboard-option-icon' /> Добавить транзакцию </p>
-                    <p className={`dashboard-option ${active === "getmember" ? "clicked" : ""}`} onClick={() => { setActive("getmember"); setSidebar(false) }}><AccountBoxIcon className='dashboard-option-icon' /> Получить участника </p>
-                    <p className={`dashboard-option ${active === "addmember" ? "clicked" : ""}`} onClick={() => { setActive("addmember"); setSidebar(false) }}><PersonAddIcon className='dashboard-option-icon' /> Добавить участника </p>
-                    <p className={`dashboard-option ${active === "returntransaction" ? "clicked" : ""}`} onClick={() => { setActive("returntransaction"); setSidebar(false) }}><AssignmentReturnIcon className='dashboard-option-icon' /> Возврат </p>
+                    <p className={`dashboard-option ${active === "profile" ? "clicked" : ""}`} onClick={() => handleSidebarClick("profile")}><AccountCircleIcon className='dashboard-option-icon' /> Профиль</p>
+                    <p className={`dashboard-option ${active === "dashboard" ? "clicked" : ""}`} onClick={() => handleSidebarClick("dashboard")}><DashboardIcon className='dashboard-option-icon' /> Панель управления</p>
+                    <p className={`dashboard-option ${active === "addbook" ? "clicked" : ""}`} onClick={() => handleSidebarClick("addbook")}><BookIcon className='dashboard-option-icon' />Добавить книгу</p>
+                    <p className={`dashboard-option ${active === "addtransaction" ? "clicked" : ""}`} onClick={() => handleSidebarClick("addtransaction")}><ReceiptIcon className='dashboard-option-icon' /> Добавить транзакцию </p>
+                    <p className={`dashboard-option ${active === "getmember" ? "clicked" : ""}`} onClick={() => handleSidebarClick("getmember")}><AccountBoxIcon className='dashboard-option-icon' /> Получить участника </p>
+                    <p className={`dashboard-option ${active === "addmember" ? "clicked" : ""}`} onClick={() => handleSidebarClick("addmember")}><PersonAddIcon className='dashboard-option-icon' /> Добавить участника </p>
+                    <p className={`dashboard-option ${active === "returntransaction" ? "clicked" : ""}`} onClick={() => handleSidebarClick("returntransaction")}><AssignmentReturnIcon className='dashboard-option-icon' /> Возврат </p>
                     <p className={`dashboard-option`} onClick={logout}><PowerSettingsNewIcon className='dashboard-option-icon' /> Выйти </p>
-
                 </div>
+
+                {/* Контент активного компонента */}
                 <div className="dashboard-option-content">
-                    <div className='dashboard-dash-content' style={active !== "dashboard" ? {display: 'none' } : {}}>
-                        <Dashboard />
-                    </div>
-                    <div className="dashboard-addbooks-content" style={active !== "addbook" ? { display: 'none' } : {}}>
-                        <AddBook />
-                    </div>
-                    <div className="dashboard-transactions-content" style={active !== "addtransaction" ? { display: 'none' } : {}}>
-                        <AddTransaction />
-                    </div>
-                    <div className="dashboard-addmember-content" style={active !== "addmember" ? { display: 'none' } : {}}>
-                        <AddMember />
-                    </div>
-                    <div className="dashboard-addmember-content" style={active !== "getmember" ? { display: 'none' } : {}}>
-                        <GetMember />
-                    </div>
-                    <div className="dashboard-addmember-content" style={active !== "returntransaction" ? { display: 'none' } : {}}>
-                        <Return />
-                    </div>
+                    {renderActiveComponent()}
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default EmployeeDashboard;

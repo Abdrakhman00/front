@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./dashboard.css"
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FaUsers, FaUserPlus, FaBook, FaExclamationTriangle, FaChevronDown, FaEllipsisH, FaChevronRight } from 'react-icons/fa';
 
 const App = () => {
+    const navigate = useNavigate()
     return (
         <div className="container">
             <div className="dashboard-grid">
@@ -16,6 +18,8 @@ const App = () => {
                 <Table title="Member List" headers={["MEMBER NAME", "ID", "BOOKS ISSUED", "ACTION"]} rows={members} />
                 <Table title="List of Books" headers={["BOOK NAME", "BOOK CODE", "BOOK STATUS", "ACTION"]} rows={books} />
             </div>
+            <button onClick={()=> navigate('/employee/dashboard')} >Сотрудники</button>
+            <button onClick={()=> navigate('/reader/dashboard')}>Читатели</button>
         </div>
     );
 };
@@ -27,6 +31,7 @@ const Card = ({ icon, number, label }) => (
           <div className="number">{number}</div>
           <div className="label">{label}</div>
       </div>
+      
   </div>
 );
 
@@ -55,10 +60,13 @@ const Table = ({ title, headers, rows }) => (
                 ))}
             </tbody>
         </table>
+     
     </div>
 );
 
 const members = Array(7).fill(["Aman Sharma", "B332", "Champak", <i className="fas fa-ellipsis-h"></i>]);
 const books = Array(7).fill(["Twisted Love", "1342", "On Shelf", <i className="fas fa-ellipsis-h"></i>]);
+
+
 
 export default App;

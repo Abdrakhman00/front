@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import "../AdminDashboard.css"
+import "../../AdminDashboard/AdminDashboard.css"
 import axios from "axios"
 import { AuthContext } from '../../../../Context/AuthContext'
 import { Dropdown } from 'semantic-ui-react'

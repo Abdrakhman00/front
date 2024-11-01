@@ -1,51 +1,73 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Signin.css';
-import { useNavigate } from 'react-router-dom'; // Для перенаправления
-import { login } from './singnApi'; // Импортируем функцию login
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import {jwtDecode} from 'jwt-decode'; // Импортируем библиотеку для декодирования JWT
+import { login } from './singnApi';
+// Validation schema
+const schema = yup.object().shape({
+    email: yup
+        .string()
+        .required('Email обязателен')
+        .matches(/^[\w.-]+@(gmail\.com|yahoo\.com|icloud\.com|mail\.ru)$/i, 'Введите почту популярного провайдера'),
+    password: yup
+        .string()
+        .required('Пароль обязателен')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/, 'Пароль должен содержать минимум 8 символов, включая заглавные, строчные буквы, цифры и специальные символы'),
+});
 
 function Signin() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate(); // Используем навигацию для перенаправления
+    const navigate = useNavigate();
 
-    const sendForm = async (e) => {
-        e.preventDefault();
-        
+    // Form setup with validation
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    });
+
+    const sendForm = async (data) => {
         try {
-            const res = await login(email, password, "reader");
+            const res = await login(data.email, data.password, "reader");
             localStorage.setItem('token', res.token);
 
-            navigate('/profile'); 
+            // Декодируем токен
+            const decodedToken = jwtDecode(res.token);
+            console.log('Decoded Token:', decodedToken); // Выводим декодированный токен в консоль
+
+            navigate(`/profile/${decodedToken.id}`); // Используем id из декодированного токена
         } catch (err) {
-            setError(err.message);
+            // Обработка ошибок
+            alert(err.message);
         }
     };
 
     return (
         <div className='signin-container'>
             <div className="signin-card">
-                <form onSubmit={sendForm}>
+                <form onSubmit={handleSubmit(sendForm)}>
                     <h2 className="signin-title">Авторизоваться</h2>
                     <p className="line"></p>
-                    <div className="error-message"><p>{error}</p></div>
+
+                    <div className="error-message">
+                        <p>{errors.email?.message || errors.password?.message}</p>
+                    </div>
+
                     <div className="signin-fields">
                         <label htmlFor="email"><b>Email</b></label>
                         <input
                             className='signin-textbox'
-                            type="text"  // Заменили type="email" на type="text"
+                            type="text"
                             placeholder="Введите email"
-                            name="email"
-                            onChange={(e) => setEmail(e.target.value)}
+                            {...register('email')}
                         />
+
                         <label htmlFor="password"><b>Password</b></label>
                         <input
                             className='signin-textbox'
                             type="password"
-                            minLength='6'
                             placeholder="Введите пароль"
-                            name="password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            {...register('password')}
                         />
                     </div>
 

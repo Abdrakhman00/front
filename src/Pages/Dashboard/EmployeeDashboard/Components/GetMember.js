@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import "../AdminDashboard.css"
+import "../../AdminDashboard/AdminDashboard.css"
 import axios from "axios"
 import { Dropdown } from 'semantic-ui-react'
-import '../../MemberDashboard/MemberDashboard.css'
+import '../../ReaderDashboard/MemberDashboard.css'
 import moment from "moment"
 
 function GetMember() {
