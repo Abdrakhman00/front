@@ -29,7 +29,9 @@ function Signin() {
     const sendForm = async (data) => {
         try {
             const res = await login(data.email, data.password, "reader");
+
             localStorage.setItem('token', res.token);
+            window.dispatchEvent(new Event('login'));
 
             // Декодируем токен
             const decodedToken = jwtDecode(res.token);

@@ -1,21 +1,37 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '..//Context/AuthContext'; // Импортируйте AuthContext
 import MenuIcon from '@material-ui/icons/Menu';
 import ClearIcon from '@material-ui/icons/Clear';
 import './Header.css';
 
 function Header() {
-    const { user, dispatch } = useContext(AuthContext); // Используйте контекст
+    const [userLoggedIn, setUserLoggedIn] = useState(!!localStorage.getItem('token'));
     const [menutoggle, setMenutoggle] = useState(false);
 
     const toggleMenu = () => setMenutoggle(prev => !prev);
     const closeMenu = () => setMenutoggle(false);
 
     const handleLogout = () => {
-        dispatch({ type: "LOGOUT" }); // Вызовите действие выхода
+        localStorage.removeItem('token');
+        setUserLoggedIn(false);
         closeMenu();
     };
+
+    useEffect(() => {
+        const checkToken = () => {
+            const token = localStorage.getItem('token');
+            setUserLoggedIn(!!token);
+        };
+
+        // Отслеживаем изменения в localStorage и настраиваем слушатель на событие входа
+        window.addEventListener('storage', checkToken);
+        window.addEventListener('login', checkToken); // слушаем кастомное событие
+
+        return () => {
+            window.removeEventListener('storage', checkToken);
+            window.removeEventListener('login', checkToken);
+        };
+    }, []);
 
     return (
         <div className="header">
@@ -34,9 +50,9 @@ function Header() {
                     <li className="option" onClick={closeMenu}>
                         <Link to='/books'><span>Книги</span></Link>
                     </li>
-                    <li className="option" onClick={user ? handleLogout : closeMenu}>
-                        <Link to={user ? '#' : '/signin'}>
-                            <span>{user ? 'Выйти' : 'Войти'}</span>
+                    <li className="option" onClick={userLoggedIn ? handleLogout : closeMenu}>
+                        <Link to={userLoggedIn ? '#' : '/signin'}>
+                            <span>{userLoggedIn ? 'Выйти' : 'Войти'}</span>
                         </Link>
                     </li>
                 </ul>

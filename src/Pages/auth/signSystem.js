@@ -15,7 +15,9 @@ function SigninSystem() {
         
         try {
             const res = await login(email, password, role); // Передаем роль
+            
             localStorage.setItem('token', res.token);
+            window.dispatchEvent(new Event('login'));
 
             // Перенаправляем на соответствующую страницу в зависимости от роли
             if (role === 'admin') {
